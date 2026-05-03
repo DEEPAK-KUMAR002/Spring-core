@@ -1,23 +1,39 @@
 package com.core;
 
+import com.core.Qualifier.Human;
+import com.core.college.Student;
+import com.core.college.Teacher;
+import com.core.concepts.ConfigClass;
 import com.core.concepts.Car;
 import com.core.concepts.Engine;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class App
 {
     public static void main( String[] args )
     {
-
         System.out.println( "Project started" );
         System.out.println("Starting Point");
-        ApplicationContext container =new ClassPathXmlApplicationContext("config.xml");
+//        ApplicationContext container =new ClassPathXmlApplicationContext("config.xml");
         //container
+        ApplicationContext container = new AnnotationConfigApplicationContext(ConfigClass.class);
         Engine engine1= container.getBean("engine1",Engine.class);
         engine1.startEngine();
         System.out.println("------");
         Car car = container.getBean("car",Car.class);
         car.start();
+
+        Student student = container.getBean("student",Student.class);
+        System.out.println(student);
+        student.show();
+
+        Teacher teacher =container.getBean("teacher", Teacher.class);
+        System.out.println(teacher);
+
+        Human Kartik=container.getBean("human", Human.class);
+        Kartik.tryColdDrink();
     }
 }
+
